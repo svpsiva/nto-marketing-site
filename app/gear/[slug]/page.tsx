@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllProducts, getProductBySlug } from "@/lib/contentful/queries";
 import { RichText } from "@/lib/richtext";
+import { ProductImageCarousel } from "@/components/site/ProductImageCarousel";
 
 export const revalidate = 3600;
 
@@ -41,17 +41,7 @@ export default async function ProductPage({
       </Link>
 
       <div className="mt-6 grid gap-12 sm:grid-cols-2">
-        <div className="flex flex-col gap-4">
-          {product.images.length > 0 ? (
-            product.images.map((image, i) => (
-              <div key={i} className="relative aspect-square overflow-hidden rounded-2xl bg-charcoal-100">
-                <Image src={image.url} alt={image.alt} fill className="object-contain" priority={i === 0} />
-              </div>
-            ))
-          ) : (
-            <div className="aspect-square rounded-2xl bg-charcoal-100" />
-          )}
-        </div>
+        <ProductImageCarousel images={product.images} alt={product.name} />
 
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">
