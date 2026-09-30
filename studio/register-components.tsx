@@ -10,6 +10,12 @@ import { NewsletterSignup } from "@/components/studio/NewsletterSignup";
 import { RichTextBlock } from "@/components/studio/RichTextBlock";
 import { ImageGallery } from "@/components/studio/ImageGallery";
 import { TrailStatsBand } from "@/components/studio/TrailStatsBand";
+import { PageHeader } from "@/components/studio/PageHeader";
+import { CategoryHeader } from "@/components/studio/CategoryHeader";
+import { ProductCard } from "@/components/studio/ProductCard";
+import { ProductGrid } from "@/components/studio/ProductGrid";
+import { ArticleCard } from "@/components/studio/ArticleCard";
+import { ArticleGrid } from "@/components/studio/ArticleGrid";
 
 const CATEGORY = "NTO Marketing";
 
@@ -221,6 +227,86 @@ defineComponents([
         stat3Number: { displayName: "Stat 3 number", type: "Text" },
         stat3Label: { displayName: "Stat 3 label", type: "Text" },
       },
+    },
+  },
+  {
+    component: PageHeader,
+    definition: {
+      id: "nto-page-header",
+      name: "Page Header",
+      category: CATEGORY,
+      builtInStyles: builtInStyles(),
+      variables: {
+        heading: { displayName: "Heading", type: "Text", defaultValue: "Page heading" },
+        body: { displayName: "Body", type: "Text" },
+      },
+    },
+  },
+  {
+    component: CategoryHeader,
+    definition: {
+      id: "nto-category-header",
+      name: "Category Header",
+      category: CATEGORY,
+      builtInStyles: builtInStyles(),
+      variables: {
+        name: { displayName: "Category name", type: "Text" },
+        description: { displayName: "Description", type: "Text" },
+        heroImage: { displayName: "Hero image", type: "Media" },
+      },
+    },
+  },
+  {
+    component: ProductCard,
+    definition: {
+      id: "nto-product-card",
+      name: "Product Card",
+      category: CATEGORY,
+      builtInStyles: builtInStyles(),
+      variables: {
+        image: { displayName: "Image", type: "Media" },
+        name: { displayName: "Product name", type: "Text" },
+        tagline: { displayName: "Tagline", type: "Text" },
+        href: { displayName: "Link", type: "Hyperlink" },
+      },
+    },
+  },
+  {
+    component: ProductGrid,
+    definition: {
+      id: "nto-product-grid",
+      name: "Product Grid",
+      category: CATEGORY,
+      builtInStyles: builtInStyles(),
+      children: true,
+      variables: {},
+    },
+  },
+  {
+    component: ArticleCard,
+    definition: {
+      id: "nto-article-card",
+      name: "Article Card",
+      category: CATEGORY,
+      builtInStyles: builtInStyles(),
+      variables: {
+        image: { displayName: "Image", type: "Media" },
+        title: { displayName: "Title", type: "Text" },
+        excerpt: { displayName: "Excerpt", type: "Text" },
+        authorName: { displayName: "Author name", type: "Text" },
+        href: { displayName: "Link", type: "Hyperlink" },
+      },
+    },
+  },
+  {
+    component: ArticleGrid,
+    definition: {
+      id: "nto-article-grid",
+      name: "Article Grid",
+      category: CATEGORY,
+      builtInStyles: builtInStyles(),
+      children: true,
+      variables: {},
     },
   },
 ]);
