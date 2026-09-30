@@ -6,6 +6,7 @@
 # Editors
 .cursor/
 .vscode/
+.claude/
 
 # dependencies
 /node_modules

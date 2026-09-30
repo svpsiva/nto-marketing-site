@@ -160,6 +160,17 @@ defineComponents([
         body: { displayName: "Body", type: "Text" },
         placeholder: { displayName: "Input placeholder", type: "Text", defaultValue: "you@example.com" },
         submitLabel: { displayName: "Submit label", type: "Text", defaultValue: "Sign up" },
+        background: {
+          displayName: "Background",
+          type: "Text",
+          defaultValue: "grey",
+          validations: {
+            in: [
+              { value: "grey", displayName: "Grey" },
+              { value: "white", displayName: "White" },
+            ],
+          },
+        },
       },
     },
   },
