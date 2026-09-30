@@ -1,6 +1,7 @@
 import { defineComponents, defineBreakpoints, defineDesignTokens } from "@contentful/experiences-sdk-react";
 import { Hero } from "@/components/studio/Hero";
 import { FeatureGrid } from "@/components/studio/FeatureGrid";
+import { FeatureCard } from "@/components/studio/FeatureCard";
 import { ProductSpotlight } from "@/components/studio/ProductSpotlight";
 import { CollectionShowcase } from "@/components/studio/CollectionShowcase";
 import { Testimonial } from "@/components/studio/Testimonial";
@@ -12,6 +13,14 @@ import { TrailStatsBand } from "@/components/studio/TrailStatsBand";
 
 const CATEGORY = "NTO Marketing";
 
+// Every leaf node we author (see leafExtras() in lib/contentful/seed/experience-builder.mjs)
+// carries a cfWidth: 100% DesignValue so full-bleed components aren't clipped to their
+// in-flow content width. The SDK only reads a design variable in Studio's Preview/editor
+// canvas when it's declared on the component definition (unlike the published-page
+// renderer, which reads the raw node data directly) — so cfWidth must be requested here via
+// builtInStyles, or components render narrower/taller than intended in Preview only.
+const builtInStyles = (): ("cfWidth" | "cfMargin")[] => ["cfWidth", "cfMargin"];
+
 defineComponents([
   {
     component: Hero,
@@ -19,6 +28,7 @@ defineComponents([
       id: "nto-hero",
       name: "Hero",
       category: CATEGORY,
+      builtInStyles: builtInStyles(),
       variables: {
         heading: { displayName: "Heading", type: "Text", defaultValue: "Outfitted for freedom." },
         subheading: { displayName: "Subheading", type: "Text" },
@@ -27,7 +37,11 @@ defineComponents([
         primaryCtaHref: { displayName: "Primary CTA link", type: "Hyperlink" },
         secondaryCtaLabel: { displayName: "Secondary CTA label", type: "Text" },
         secondaryCtaHref: { displayName: "Secondary CTA link", type: "Hyperlink" },
-        minHeight: { displayName: "Minimum height", type: "Text", defaultValue: "70vh" },
+        minHeight: {
+          displayName: "Minimum height",
+          type: "Text",
+          defaultValue: "clamp(400px, 70vh, 760px)",
+        },
       },
     },
   },
@@ -37,9 +51,24 @@ defineComponents([
       id: "nto-feature-grid",
       name: "Feature Grid",
       category: CATEGORY,
+      builtInStyles: builtInStyles(),
       children: true,
       variables: {
         heading: { displayName: "Heading", type: "Text" },
+      },
+    },
+  },
+  {
+    component: FeatureCard,
+    definition: {
+      id: "nto-feature-card",
+      name: "Feature Card",
+      category: CATEGORY,
+      builtInStyles: builtInStyles(),
+      variables: {
+        image: { displayName: "Image", type: "Media" },
+        heading: { displayName: "Heading", type: "Text" },
+        body: { displayName: "Body", type: "Text" },
       },
     },
   },
@@ -49,6 +78,7 @@ defineComponents([
       id: "nto-product-spotlight",
       name: "Product Spotlight",
       category: CATEGORY,
+      builtInStyles: builtInStyles(),
       variables: {
         eyebrow: { displayName: "Eyebrow", type: "Text" },
         name: { displayName: "Product name", type: "Text" },
@@ -65,6 +95,7 @@ defineComponents([
       id: "nto-collection-showcase",
       name: "Collection Showcase",
       category: CATEGORY,
+      builtInStyles: builtInStyles(),
       variables: {
         name: { displayName: "Collection name", type: "Text" },
         description: { displayName: "Description", type: "Text" },
@@ -91,6 +122,7 @@ defineComponents([
       id: "nto-testimonial",
       name: "Testimonial",
       category: CATEGORY,
+      builtInStyles: builtInStyles(),
       variables: {
         quote: { displayName: "Quote", type: "Text" },
         authorName: { displayName: "Author name", type: "Text" },
@@ -105,6 +137,7 @@ defineComponents([
       id: "nto-cta-banner",
       name: "CTA Banner",
       category: CATEGORY,
+      builtInStyles: builtInStyles(),
       variables: {
         heading: { displayName: "Heading", type: "Text", defaultValue: "Ready to gear up?" },
         body: { displayName: "Body", type: "Text" },
@@ -121,6 +154,7 @@ defineComponents([
       id: "nto-newsletter-signup",
       name: "Newsletter Signup",
       category: CATEGORY,
+      builtInStyles: builtInStyles(),
       variables: {
         heading: { displayName: "Heading", type: "Text", defaultValue: "Stay on the trail" },
         body: { displayName: "Body", type: "Text" },
@@ -135,6 +169,7 @@ defineComponents([
       id: "nto-rich-text-block",
       name: "Rich Text Block",
       category: CATEGORY,
+      builtInStyles: builtInStyles(),
       variables: {
         heading: { displayName: "Heading", type: "Text" },
         content: { displayName: "Content", type: "RichText" },
@@ -148,6 +183,7 @@ defineComponents([
       id: "nto-image-gallery",
       name: "Image Gallery",
       category: CATEGORY,
+      builtInStyles: builtInStyles(),
       variables: {
         heading: { displayName: "Heading", type: "Text" },
         image1: { displayName: "Image 1", type: "Media" },
@@ -165,6 +201,7 @@ defineComponents([
       id: "nto-trail-stats-band",
       name: "Trail Stats Band",
       category: CATEGORY,
+      builtInStyles: builtInStyles(),
       variables: {
         stat1Number: { displayName: "Stat 1 number", type: "Text" },
         stat1Label: { displayName: "Stat 1 label", type: "Text" },

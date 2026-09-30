@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { resolveMediaUrl } from "./media";
 
+// minHeight defaults use clamp() rather than a bare vh value: `vh` resolves against
+// the containing iframe's own height in Contentful Studio's Preview canvas (which the
+// SDK auto-resizes to fit page content), not the real browser viewport, so an unclamped
+// vh can render far taller there than on the published page.
 export interface HeroProps {
   heading?: string;
   subheading?: string;
@@ -22,7 +26,7 @@ export function Hero({
   primaryCtaHref,
   secondaryCtaLabel,
   secondaryCtaHref,
-  minHeight = "70vh",
+  minHeight = "clamp(400px, 70vh, 760px)",
 }: HeroProps) {
   const imageUrl = resolveMediaUrl(backgroundImage);
 
