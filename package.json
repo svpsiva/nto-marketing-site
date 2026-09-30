@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@contentful/experiences-sdk-react": "^3.8.10",
+    "@contentful/live-preview": "^4.10.26",
     "@contentful/rich-text-react-renderer": "^16.2.2",
     "@contentful/rich-text-types": "^17.2.7",
     "contentful": "^11.12.10",

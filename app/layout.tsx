@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
+import { PreviewBanner } from "@/components/site/PreviewBanner";
 import { siteSettings as fallbackSiteSettings } from "@/lib/site-settings";
 import { getSiteSettings } from "@/lib/contentful/queries";
 
@@ -45,6 +46,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <PreviewBanner />
         <Nav settings={settings} />
         <main className="flex-1">{children}</main>
         <Footer settings={settings} />

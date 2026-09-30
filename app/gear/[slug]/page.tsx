@@ -1,9 +1,9 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { draftMode } from "next/headers";
 import type { Metadata } from "next";
-import { getAllProducts, getProductBySlug } from "@/lib/contentful/queries";
-import { RichText } from "@/lib/richtext";
-import { ProductImageCarousel } from "@/components/site/ProductImageCarousel";
+import { getAllProducts, getProductBySlug, getRawProductBySlug } from "@/lib/contentful/queries";
+import { ProductDetail } from "@/components/site/ProductDetail";
+import { ProductDetailLive } from "@/components/site/ProductDetailLive";
 
 export const revalidate = 3600;
 
@@ -18,67 +18,36 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = await getProductBySlug(slug);
+  const { isEnabled } = await draftMode();
+  const product = await getProductBySlug(slug, isEnabled);
   if (!product) return {};
   return { title: product.name, description: product.tagline };
 }
 
 export default async function ProductPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ contentfulPreviewSecret?: string }>;
 }) {
   const { slug } = await params;
+  const { isEnabled } = await draftMode();
+  const { contentfulPreviewSecret } = await searchParams;
+  // Contentful Studio's embedded preview panel loads this URL in a cross-site iframe, where the
+  // draftMode cookie (SameSite=Lax) never arrives — so preview mode there is signaled via a query
+  // param on the "Content preview" URL instead of the /api/preview redirect + cookie.
+  const preview = isEnabled || contentfulPreviewSecret?.trim() === process.env.CONTENTFUL_PREVIEW_SECRET;
+
+  if (preview) {
+    const entry = await getRawProductBySlug(slug, true);
+    if (!entry) notFound();
+    // Strip SDK class instances so the entry can cross the server/client boundary as a plain prop.
+    const plainEntry = JSON.parse(JSON.stringify(entry));
+    return <ProductDetailLive entry={plainEntry} />;
+  }
+
   const product = await getProductBySlug(slug);
   if (!product) notFound();
-
-  const specEntries = Object.entries(product.specs);
-
-  return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
-      <Link href="/gear" className="text-sm text-sky-700 hover:text-sky-800">
-        ← Back to Gear
-      </Link>
-
-      <div className="mt-6 grid gap-12 sm:grid-cols-2">
-        <ProductImageCarousel images={product.images} alt={product.name} />
-
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">
-            {product.category}
-          </p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-charcoal-800">
-            {product.name}
-          </h1>
-          {product.tagline && <p className="mt-2 text-lg text-charcoal-500">{product.tagline}</p>}
-
-          <div className="mt-6">
-            <RichText document={product.description} />
-          </div>
-
-          {specEntries.length > 0 && (
-            <dl className="mt-8 grid grid-cols-1 gap-3 border-t border-charcoal-100 pt-6 sm:grid-cols-2">
-              {specEntries.map(([key, value]) => (
-                <div key={key}>
-                  <dt className="text-xs uppercase tracking-wide text-charcoal-400">
-                    {key.replace(/_/g, " ")}
-                  </dt>
-                  <dd className="text-sm text-charcoal-700">{value}</dd>
-                </div>
-              ))}
-            </dl>
-          )}
-
-          {product.externalStoreUrl && (
-            <a
-              href={product.externalStoreUrl}
-              className="mt-8 inline-block rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-charcoal-950 hover:bg-sky-400"
-            >
-              Shop this product
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+  return <ProductDetail product={product} />;
 }
