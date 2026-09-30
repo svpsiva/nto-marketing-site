@@ -250,9 +250,11 @@ defineComponents([
       category: CATEGORY,
       builtInStyles: builtInStyles(),
       variables: {
-        name: { displayName: "Category name", type: "Text" },
-        description: { displayName: "Description", type: "Text" },
-        heroImage: { displayName: "Hero image", type: "Media" },
+        entry: {
+          displayName: "Collection",
+          type: "Link",
+          validations: { bindingSourceType: ["entry"] },
+        },
       },
     },
   },
@@ -264,10 +266,11 @@ defineComponents([
       category: CATEGORY,
       builtInStyles: builtInStyles(),
       variables: {
-        image: { displayName: "Image", type: "Media" },
-        name: { displayName: "Product name", type: "Text" },
-        tagline: { displayName: "Tagline", type: "Text" },
-        href: { displayName: "Link", type: "Hyperlink" },
+        entry: {
+          displayName: "Product",
+          type: "Link",
+          validations: { bindingSourceType: ["entry"] },
+        },
       },
     },
   },
@@ -290,11 +293,11 @@ defineComponents([
       category: CATEGORY,
       builtInStyles: builtInStyles(),
       variables: {
-        image: { displayName: "Image", type: "Media" },
-        title: { displayName: "Title", type: "Text" },
-        excerpt: { displayName: "Excerpt", type: "Text" },
-        authorName: { displayName: "Author name", type: "Text" },
-        href: { displayName: "Link", type: "Hyperlink" },
+        entry: {
+          displayName: "Article",
+          type: "Link",
+          validations: { bindingSourceType: ["entry"] },
+        },
       },
     },
   },
