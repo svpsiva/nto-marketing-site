@@ -9,6 +9,7 @@ export interface CollectionShowcaseProps {
   heroImage?: unknown;
   ctaLabel?: string;
   ctaHref?: string;
+  imagePosition?: "left" | "right";
 }
 
 export function CollectionShowcase({
@@ -17,16 +18,20 @@ export function CollectionShowcase({
   heroImage,
   ctaLabel = "Shop the collection",
   ctaHref,
+  imagePosition = "right",
 }: CollectionShowcaseProps) {
   const imageUrl = resolveMediaUrl(heroImage);
+  const imageOnLeft = imagePosition === "left";
 
   return (
-    <section className="relative overflow-hidden bg-charcoal-100">
+    <section className="relative w-full overflow-hidden">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 sm:grid-cols-2">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+        <div
+          className={`relative aspect-[4/3] overflow-hidden rounded-2xl ${imageOnLeft ? "" : "sm:order-2"}`}
+        >
           {imageUrl && <Image src={imageUrl} alt={name} fill className="object-cover" />}
         </div>
-        <div>
+        <div className={imageOnLeft ? "" : "sm:order-1"}>
           <h2 className="text-3xl font-semibold tracking-tight text-charcoal-800">{name}</h2>
           {description && <p className="mt-4 text-charcoal-600">{description}</p>}
           {ctaHref && (

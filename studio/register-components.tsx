@@ -27,6 +27,7 @@ defineComponents([
         primaryCtaHref: { displayName: "Primary CTA link", type: "Hyperlink" },
         secondaryCtaLabel: { displayName: "Secondary CTA label", type: "Text" },
         secondaryCtaHref: { displayName: "Secondary CTA link", type: "Hyperlink" },
+        minHeight: { displayName: "Minimum height", type: "Text", defaultValue: "70vh" },
       },
     },
   },
@@ -70,6 +71,17 @@ defineComponents([
         heroImage: { displayName: "Hero image", type: "Media" },
         ctaLabel: { displayName: "CTA label", type: "Text", defaultValue: "Shop the collection" },
         ctaHref: { displayName: "CTA link", type: "Hyperlink" },
+        imagePosition: {
+          displayName: "Image position",
+          type: "Text",
+          defaultValue: "right",
+          validations: {
+            in: [
+              { value: "left", displayName: "Image on left" },
+              { value: "right", displayName: "Image on right" },
+            ],
+          },
+        },
       },
     },
   },
@@ -99,6 +111,7 @@ defineComponents([
         ctaLabel: { displayName: "CTA label", type: "Text", defaultValue: "Shop now" },
         ctaHref: { displayName: "CTA link", type: "Hyperlink" },
         backgroundImage: { displayName: "Background image", type: "Media" },
+        dark: { displayName: "Dark background", type: "Boolean", defaultValue: true },
       },
     },
   },
@@ -125,6 +138,7 @@ defineComponents([
       variables: {
         heading: { displayName: "Heading", type: "Text" },
         content: { displayName: "Content", type: "RichText" },
+        compact: { displayName: "Compact (card) style", type: "Boolean", defaultValue: false },
       },
     },
   },

@@ -26,7 +26,7 @@ export function TrailStatsBand({
   if (stats.length === 0) return null;
 
   return (
-    <section className="bg-charcoal-950 text-white">
+    <section className="w-full bg-charcoal-950 text-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:grid-cols-3">
         {stats.map((stat, i) => (
           <div key={i} className="text-center">

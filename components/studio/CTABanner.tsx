@@ -9,6 +9,7 @@ export interface CTABannerProps {
   ctaLabel?: string;
   ctaHref?: string;
   backgroundImage?: unknown;
+  dark?: boolean;
 }
 
 export function CTABanner({
@@ -17,17 +18,25 @@ export function CTABanner({
   ctaLabel = "Shop now",
   ctaHref,
   backgroundImage,
+  dark = true,
 }: CTABannerProps) {
   const imageUrl = resolveMediaUrl(backgroundImage);
 
   return (
-    <section className="relative overflow-hidden bg-charcoal-950">
+    <section className={`relative w-full overflow-hidden ${dark ? "bg-charcoal-950" : "bg-white"}`}>
       {imageUrl && (
-        <Image src={imageUrl} alt="" fill className="object-cover opacity-40" />
+        <Image
+          src={imageUrl}
+          alt=""
+          fill
+          className={`object-cover ${dark ? "opacity-40" : "opacity-20"}`}
+        />
       )}
-      <div className="relative mx-auto max-w-6xl px-6 py-20 text-center text-white">
+      <div
+        className={`relative mx-auto max-w-6xl px-6 py-20 text-center ${dark ? "text-white" : "text-charcoal-800"}`}
+      >
         <h2 className="text-3xl font-semibold tracking-tight">{heading}</h2>
-        {body && <p className="mt-4 text-charcoal-100">{body}</p>}
+        {body && <p className={`mt-4 ${dark ? "text-charcoal-100" : "text-charcoal-600"}`}>{body}</p>}
         {ctaHref && (
           <a
             href={ctaHref}

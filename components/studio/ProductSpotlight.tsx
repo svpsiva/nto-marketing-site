@@ -23,7 +23,7 @@ export function ProductSpotlight({
   const imageUrl = resolveMediaUrl(image);
 
   return (
-    <section className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 sm:grid-cols-2">
+    <section className="mx-auto grid w-full max-w-6xl items-center gap-10 px-6 py-20 sm:grid-cols-2">
       <div className="relative aspect-square overflow-hidden rounded-2xl bg-charcoal-100">
         {imageUrl && <Image src={imageUrl} alt={name} fill className="object-contain" />}
       </div>

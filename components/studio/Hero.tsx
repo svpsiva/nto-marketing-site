@@ -11,6 +11,7 @@ export interface HeroProps {
   primaryCtaHref?: string;
   secondaryCtaLabel?: string;
   secondaryCtaHref?: string;
+  minHeight?: string;
 }
 
 export function Hero({
@@ -21,11 +22,15 @@ export function Hero({
   primaryCtaHref,
   secondaryCtaLabel,
   secondaryCtaHref,
+  minHeight = "70vh",
 }: HeroProps) {
   const imageUrl = resolveMediaUrl(backgroundImage);
 
   return (
-    <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-charcoal-950">
+    <section
+      className="relative flex w-full items-center justify-center overflow-hidden bg-charcoal-950"
+      style={{ minHeight }}
+    >
       {imageUrl && (
         <Image src={imageUrl} alt="" fill priority className="object-cover opacity-80" />
       )}

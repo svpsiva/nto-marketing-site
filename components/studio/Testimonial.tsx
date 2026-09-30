@@ -14,7 +14,7 @@ export function Testimonial({ quote, authorName, authorRole, authorAvatar }: Tes
   const avatarUrl = resolveMediaUrl(authorAvatar);
 
   return (
-    <section className="mx-auto max-w-3xl px-6 py-20 text-center">
+    <section className="mx-auto w-full max-w-3xl px-6 py-20 text-center">
       {quote && (
         <blockquote className="text-2xl font-medium leading-relaxed text-charcoal-800">
           &ldquo;{quote}&rdquo;

@@ -24,7 +24,7 @@ export function NewsletterSignup({
   }
 
   return (
-    <section className="bg-charcoal-100">
+    <section className="w-full bg-charcoal-100">
       <div className="mx-auto max-w-2xl px-6 py-20 text-center">
         <h2 className="text-3xl font-semibold tracking-tight text-charcoal-800">{heading}</h2>
         {body && <p className="mt-4 text-charcoal-600">{body}</p>}

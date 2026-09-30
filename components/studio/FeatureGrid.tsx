@@ -11,7 +11,7 @@ export interface FeatureGridProps {
 // components inside to compose each card.
 export function FeatureGrid({ heading, children }: FeatureGridProps) {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-20">
+    <section className="mx-auto w-full max-w-6xl px-6 py-20">
       {heading && (
         <h2 className="mb-10 text-center text-3xl font-semibold tracking-tight text-charcoal-800">
           {heading}

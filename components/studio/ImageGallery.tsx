@@ -31,7 +31,7 @@ export function ImageGallery({
     .map((img) => ({ url: img.url as string, alt: img.alt || heading || "" }));
 
   return (
-    <section className="mx-auto max-w-4xl px-6 py-16">
+    <section className="mx-auto w-full max-w-4xl px-6 py-16">
       {heading && (
         <h2 className="mb-6 text-center text-3xl font-semibold tracking-tight text-charcoal-800">
           {heading}
